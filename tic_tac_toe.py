@@ -47,15 +47,23 @@ def game_board_print(board_visual):
 
 def player_input(board_visual):
 
-    player_input = int(input("Enter a Number Between 1 - 9"))
+    player_input = int(input("Enter a Number Between 1 - 9  "))
 
     while (player_input < 1 or player_input > 9):
+
+            print("Please Enter a Number Between 1 - 9")
+
             player_input = int(input())
     
     player_input = holes_filled_check(board_visual, player_input)
 
     if player_input == False:
-        pass # gotta claim tie here
+
+        game_board_print(board_visual)
+
+        print("Its a tie")
+
+        gaming_running = False
 
     else:
         board_visual[player_input - 1] = current_player
@@ -73,10 +81,11 @@ def holes_filled_check(board_visual, player_input): # This function will check i
 
     if count > 0:
         while board_visual[player_input -1] != '-':
-            print("Position occupied at", player_input, "Please Enter a new")
+            print("Position occupied at", player_input, "Please Enter a New Input Between 1 - 9")
             player_input = int(input())
 
             while player_input < 1 or player_input > 9:
+                print("Input still not correct. Please enter input between 1 - 9")
                 player_input = int(input())
 
     else:
@@ -84,17 +93,95 @@ def holes_filled_check(board_visual, player_input): # This function will check i
     
 
     return player_input
+
+
+
+
+def check_horizontal(board_visual):
+
+    global winner 
+
+    if board_visual[0]  == board_visual[1] == board_visual[2] and board_visual[0] != '-':
+        winner = board_visual[0]
+        return True
+    
+    elif board_visual[3]  == board_visual[4] == board_visual[5] and board_visual[3] != '-':
+        winner = board_visual[3]
+        return True
+    
+    elif board_visual[6]  == board_visual[7] == board_visual[8] and board_visual[6] != '-':
+        winner = board_visual[6]
+        return True
+
+
+
+def check_row(board_visual):
+
+    global winner
+
+    if board_visual[0]  == board_visual[3] == board_visual[6] and board_visual[0] != '-':
+        winner = board_visual[0]
+        return True
+    
+    elif board_visual[1]  == board_visual[4] == board_visual[7] and board_visual[1] != '-':
+        winner = board_visual[3]
+        return True
+    
+    elif board_visual[2]  == board_visual[5] == board_visual[8] and board_visual[2] != '-':
+        winner = board_visual[6]
+        return True
+
+
+
+def check_diagonal(board_visual):
+
+    global winner
+
+    if board_visual[0] == board_visual[4] == board_visual[8] and board_visual[0] != '-':
+        winner = board_visual[0]
+        return True
+    
+    elif board_visual[2] == board_visual[4] == board_visual[6] and board_visual[2] != '-':
+        winner = board_visual[2]
+        return True
+
+
+
+def check_win():
+
+    global gaming_running
+
+    if check_diagonal(board_visual) == True or check_horizontal(board_visual) == True or check_row(board_visual) == True:
+        print("game over, we have a winner who is!", winner)
+        print()
+
+        game_board_print(board_visual)
+
+        gaming_running = False
+
+def switch_player():
+    global current_player
+
+    if current_player == 'X':
+        current_player = "O"
+    
+    else:
+        current_player = "X"
+
+
+    
+     
+
     
     
-
-
-        
-
 
 
 while gaming_running:
     game_board_print(board_visual)
     player_input(board_visual)
+    check_win()
+    switch_player()
+
 
 
 
