@@ -21,7 +21,6 @@ Features and plans to add:
 
 '''
 
-
 board_visual =  ["-", "-", "-",
                  "-", "-", "-",
                  "-","-","-",]
@@ -59,6 +58,8 @@ def player_input(board_visual):
 
     if player_input == False:
 
+        global gaming_running
+
         game_board_print(board_visual)
 
         print("Its a tie")
@@ -72,14 +73,6 @@ def player_input(board_visual):
 
 def holes_filled_check(board_visual, player_input): # This function will check if the input of the player is already where a spot has been taken
 
-    count = 0
-
-    for i in board_visual:
-        if i == "-":
-            count = count + 1
-    
-
-    if count > 0:
         while board_visual[player_input -1] != '-':
             print("Position occupied at", player_input, "Please Enter a New Input Between 1 - 9")
             player_input = int(input())
@@ -88,11 +81,7 @@ def holes_filled_check(board_visual, player_input): # This function will check i
                 print("Input still not correct. Please enter input between 1 - 9")
                 player_input = int(input())
 
-    else:
-        return False
-    
-
-    return player_input
+        return player_input
 
 
 
@@ -151,6 +140,8 @@ def check_win():
 
     global gaming_running
 
+    global board_visual
+
     if check_diagonal(board_visual) == True or check_horizontal(board_visual) == True or check_row(board_visual) == True:
         print("game over, we have a winner who is!", winner)
         print()
@@ -158,6 +149,55 @@ def check_win():
         game_board_print(board_visual)
 
         gaming_running = False
+
+    
+
+    if gaming_running == False:
+            
+        game_choice = input("Do you want to play. Enter Y to play else any key to quit")
+
+        if game_choice == 'Y' or game_choice == 'y':
+            gaming_running = True
+            board_visual =  ["-", "-", "-",
+                 "-", "-", "-",
+                 "-","-","-",]
+            run_game()
+        
+        else:
+            print("Thank you for playing. Bye")
+            exit(0)
+
+
+def tie_checker():
+
+    global gaming_running
+
+    global board_visual
+
+    if "-" not in board_visual:
+        print("It's a tie. Game over")
+        
+        gaming_running = False
+
+
+    if gaming_running == False:
+
+        game_choice = input("Do you want to play. Enter Y to play else any key to quit")
+
+        if game_choice == 'Y' or game_choice == 'y':
+            gaming_running = True
+
+            board_visual =  ["-", "-", "-",
+                 "-", "-", "-",
+                 "-","-","-",]
+
+            run_game()
+        
+        else:
+            print("Thank you for playing. Bye")
+            exit(0)
+            
+
 
 def switch_player():
     global current_player
@@ -169,18 +209,20 @@ def switch_player():
         current_player = "X"
 
 
-    
-     
-
-    
-    
 
 
-while gaming_running:
-    game_board_print(board_visual)
-    player_input(board_visual)
-    check_win()
-    switch_player()
+def run_game():
+    global gaming_running
+
+    while gaming_running:
+        game_board_print(board_visual)
+        player_input(board_visual)
+        check_win()
+        tie_checker()
+        switch_player()
+
+
+run_game()
 
 
 
