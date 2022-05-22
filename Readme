@@ -1,0 +1,21 @@
+README FILE:
+
+Hello, welcome to my first project. In this project i implemented a basic-tic-tac-toe game that can be played by two players on Python.
+These are the factors below that i considered when making this game. 
+
+I want to now improve this project and create it an OOP Style with Classes, and explore if concepts like inheritence are possible. 
+
+Making a tic-tac-toe game with python. 
+Features and plans to add:
+1. Create a game board that can be visually displayed in the console 
+2. Take in player inputs from player a and b
+3. Display input on game board
+4. Create functions that will check for winners, losers or possible ties
+5. Switch player
+6. Check if the player won or lost or tie from his side
+5. If no result occurs, continue playing or else announce winner or announce its a tie
+6. Ask if they want to play again
+
+
+
+
